@@ -9,28 +9,38 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('article') }}">
-                    <i class="bi bi-journal-text me-2"></i>
+                    <span data-feather="file"></span>
                     Postingan
                 </a>
             </li>
+
+            @if (auth()->user()->role == 1)
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('categories') }}">
+                        <span data-feather="shopping-cart"></span>
+                        Categories
+                    </a>
+                </li>
+            @endif
+
             <li class="nav-item">
-                <a class="nav-link" href="{{ url('categories') }}">
-                    <i class="bi bi-collection me-2"></i>
-                    Kategori
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ url('users') }}">
                     <span data-feather="users"></span>
                     Users
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
+                <a class="nav-link" href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
                     <span data-feather="bar-chart-2"></span>
                     Logout
                 </a>
             </li>
+
         </ul>
     </div>
 </nav>
