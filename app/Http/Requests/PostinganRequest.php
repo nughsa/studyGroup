@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateArticleRequest extends FormRequest
+class PostinganRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -17,7 +17,7 @@ class UpdateArticleRequest extends FormRequest
             'category_id' => 'required',
             'title' => 'required',
             'desc' => 'required',
-            'img' => 'nullable|image|file|mimes:png,jpg,jpeg,webp|max:2024',
+            'img' => 'required|image|file|mimes:png,jpg,jpeg,webp|max:2024',
             'group' => 'required|url',
             'status' => 'required',
             'publish_date' => 'required'

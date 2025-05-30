@@ -15,7 +15,8 @@
         </div>
 
         <div class="mt-3">
-            <a href="{{ url('article/create') }}" class="btn btn-secondary mb-2">Create</a href="{{ url('article/create') }}">
+            <a href="{{ url('postingan/create') }}" class="btn btn-secondary mb-2">Create</a
+                href="{{ url('postingan/create') }}">
 
             @if ($errors->any())
                 <div class="my-3">
@@ -70,7 +71,7 @@
                 })
             }
 
-            function deleteArticle(e) {
+            function deletePostingan(e) {
                 let id = e.getAttribute('data-id');
 
                 Swal.fire({
@@ -89,7 +90,7 @@
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                             },
                             type: 'DELETE',
-                            url: '/article/' + id,
+                            url: '/postingan/' + id,
                             dataType: 'json',
                             success: function(response) {
                                 Swal.fire({
@@ -97,7 +98,7 @@
                                     text: response.message,
                                     icon: 'success'
                                 }).then(() => {
-                                    window.location.href = '/article';
+                                    window.location.href = '/postingan';
                                 });
                             },
                             error: function(xhr, ajaxOptions, thrownError) {

@@ -8,7 +8,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ url('article') }}">
+                <a class="nav-link" href="{{ url('postingan') }}">
                     <span data-feather="file"></span>
                     Postingan
                 </a>

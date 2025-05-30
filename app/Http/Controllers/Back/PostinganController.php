@@ -2,57 +2,57 @@
 
 namespace App\Http\Controllers\Back;
 
-use App\Models\Article;
 use App\Models\Category;
+use App\Models\Postingan;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ArticleRequest;
+use App\Http\Requests\PostinganRequest;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
-use App\Http\Requests\UpdateArticleRequest;
+use App\Http\Requests\UpdatePostinganRequest;
 
-class ArticleController extends Controller
+class PostinganController extends Controller
 {
     public function index()
     {
         if (request()->ajax()) {
-            $article = Article::with('Category')->latest()->get();
+            $postingan = Postingan::with('Category')->latest()->get();
 
-            return DataTables::of($article)
+            return DataTables::of($postingan)
                 ->addIndexColumn()
-                ->addColumn('category_id', function($article){
-                    return $article->Category->name;
+                ->addColumn('category_id', function ($postingan) {
+                    return $postingan->Category->name;
                 })
-                ->addColumn('status', function($article){
-                    if ($article->status == 0) {
+                ->addColumn('status', function ($postingan) {
+                    if ($postingan->status == 0) {
                         return '<span class="badge bg-danger">Private</span>';
                     } else {
                         return '<span class="badge bg-success">Published</span>';
                     }
                 })
-                ->addColumn('button', function($article){
+                ->addColumn('button', function ($postingan) {
                     return '<div class="text-center">
-                                <a href="article/'.$article->id.'" class="btn btn-info">Detail</a>
-                                <a href="article/'.$article->id.'/edit" class="btn btn-primary">Edit</a>
-                                <a href="#" onClick="deleteArticle(this)" data-id="'.$article->id.'" class="btn btn-danger">Hapus</a>
+                                <a href="postingan/' . $postingan->id . '" class="btn btn-info">Detail</a>
+                                <a href="postingan/' . $postingan->id . '/edit" class="btn btn-primary">Edit</a>
+                                <a href="#" onClick="deletePostingan(this)" data-id="' . $postingan->id . '" class="btn btn-danger">Hapus</a>
                             </div>';
                 })
                 ->rawColumns(['category_id', 'status', 'button'])
                 ->make();
         }
 
-        return view('back.Article.index');
+        return view('back.postingan.index');
     }
 
     public function create()
     {
-        return view('back.article.create', [
+        return view('back.postingan.create', [
             'categories' => Category::get(),
         ]);
     }
 
-    public function store(ArticleRequest $request)
+    public function store(PostinganRequest $request)
     {
         $data = $request->validated();
 
@@ -63,27 +63,27 @@ class ArticleController extends Controller
         $data['img'] = $fileName;
         $data['slug'] = Str::slug($data['title']);
 
-        Article::create($data);
+        Postingan::create($data);
 
-        return redirect(url('article'))->with('success', 'Data artikel berhasil ditambahkan');
+        return redirect(url('postingan'))->with('success', 'Data artikel berhasil ditambahkan');
     }
 
     public function show(string $id)
     {
-        return view('back.article.show', [
-            'article' => Article::find($id)
+        return view('back.postingan.show', [
+            'postingan' => Postingan::find($id)
         ]);
     }
 
     public function edit(string $id)
     {
-        return view('back.article.update', [
-            'article' => Article::find($id),
+        return view('back.postingan.update', [
+            'postingan' => Postingan::find($id),
             'categories' => Category::get()
         ]);
     }
 
-    public function update(UpdateArticleRequest $request, string $id)
+    public function update(UpdatePostinganRequest $request, string $id)
     {
         $data = $request->validated();
 
@@ -92,7 +92,7 @@ class ArticleController extends Controller
             $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
             $file->storeAs('back', $fileName, 'public');
 
-            Storage::disk('public')->delete('back/'.$request->oldImg);
+            Storage::disk('public')->delete('back/' . $request->oldImg);
             $data['img'] = $fileName;
         } else {
             $data['img'] = $request->oldImg;
@@ -100,14 +100,14 @@ class ArticleController extends Controller
 
         $data['slug'] = Str::slug($data['title']);
 
-        Article::find($id)->update($data);
+        Postingan::find($id)->update($data);
 
-        return redirect(url('article'))->with('success', 'Data artikel berhasil diperbarui');
+        return redirect(url('postingan'))->with('success', 'Data artikel berhasil diperbarui');
     }
 
     public function destroy(string $id)
     {
-        $data = Article::find($id);
+        $data = Postingan::find($id);
 
         if (!$data) {
             return response()->json([
@@ -115,8 +115,8 @@ class ArticleController extends Controller
             ], 404);
         }
 
-        if ($data->img && Storage::disk('public')->exists('back/'.$data->img)) {
-            Storage::disk('public')->delete('back/'.$data->img);
+        if ($data->img && Storage::disk('public')->exists('back/' . $data->img)) {
+            Storage::disk('public')->delete('back/' . $data->img);
         }
 
         $data->delete();

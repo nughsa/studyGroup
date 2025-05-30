@@ -1,6 +1,6 @@
 @extends('back/layouts/template')
 
-@section('title', 'Detail Artikel - Admin')
+@section('title', 'Detail Postingan - Admin')
 
 @section('content')
 
@@ -17,21 +17,21 @@
                     <th width="250px">
                         Mata Pelajaran
                     </th>
-                    <td>: {{ $article->title }}</td>
+                    <td>: {{ $postingan->title }}</td>
                 </tr>
                 <tr>
                     <th>Kategori</th>
-                    <td>: {{ $article->Category->name }}</td>
+                    <td>: {{ $postingan->Category->name }}</td>
                 </tr>
                 <tr>
                     <th>Deskripsi</th>
-                    <td>: {!! $article->desc !!}</td>
+                    <td>: {!! $postingan->desc !!}</td>
                 </tr>
                 <tr>
                     <th>Link Grup WhatsApp</th>
                     <td>:
-                        @if ($article->group)
-                            <a href="{{ $article->group }}" target="_blank">Silahkan Klik Untuk Bergabung</a>
+                        @if ($postingan->group)
+                            <a href="{{ $postingan->group }}" target="_blank">Silahkan Klik Untuk Bergabung</a>
                         @else
                             <span class="badge bg-secondary">Belum tersedia</span>
                         @endif
@@ -42,18 +42,18 @@
                 <tr>
                     <th>Image</th>
                     <td>:
-                        <a href="{{ asset('storage/back/' . $article->img) }}" target="_blank" rel="noopener noreferrer">
-                            <img src="{{ asset('storage/back/' . $article->img) }}" alt="gambar artikel" width="50%">
+                        <a href="{{ asset('storage/back/' . $postingan->img) }}" target="_blank" rel="noopener noreferrer">
+                            <img src="{{ asset('storage/back/' . $postingan->img) }}" alt="gambar artikel" width="50%">
                         </a>
                     </td>
                 </tr>
                 <tr>
                     <th>Views</th>
-                    <td>: {{ $article->views }}x</td>
+                    <td>: {{ $postingan->views }}x</td>
                 </tr>
                 <tr>
                     <th>Status</th>
-                    @if ($article->status == 1)
+                    @if ($postingan->status == 1)
                         <td>: <span class="badge bg-success">Published</span></td>
                     @else
                         <td>: <span class="badge bg-danger">Private</span></td>
@@ -61,12 +61,12 @@
                 </tr>
                 <tr>
                     <th>Publish Date</th>
-                    <td>: {{ $article->publish_date }}</td>
+                    <td>: {{ $postingan->publish_date }}</td>
                 </tr>
             </table>
 
             <div class="float-end">
-                <a href="{{ url('article') }}" class="btn btn-secondary">Kembali</a>
+                <a href="{{ url('postingan') }}" class="btn btn-secondary">Kembali</a>
             </div>
         </div>
 
