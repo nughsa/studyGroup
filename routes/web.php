@@ -3,14 +3,20 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Back\UserController;
-use App\Http\Controllers\Back\ArticleController;
+use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Back\CategoryController;
 use App\Http\Controllers\Back\DashboardController;
 use App\Http\Controllers\Back\PostinganController;
+use App\Http\Controllers\Front\PostinganController as FrontPostinganController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+
+Route::get('/', [HomeController::class, 'index']);
+Route::POST('/postingan/search', [HomeController::class, 'index'])->name('search');
+
+Route::get('/p/{slug}', [FrontPostinganController::class, 'show'])->name('poatingan.show');
 
 
 Route::middleware('auth')->group(function () {

@@ -29,6 +29,15 @@
                     Users
                 </a>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link d-flex align-items-center" href="{{ url('/') }}">
+                    <i data-feather="arrow-left" class="me-1"></i>
+                    Back To Home
+                </a>
+                </a>
+            </li>
+
             <li class="nav-item">
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                     @csrf
