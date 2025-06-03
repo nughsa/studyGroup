@@ -7,6 +7,7 @@ use App\Models\Postingan;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\PostinganRequest;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
@@ -17,10 +18,17 @@ class PostinganController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $postingan = Postingan::with('Category')->latest()->get();
+            $postingan = Postingan::with(['Category', 'user'])->latest();
+
+            if (Auth::user()->name !== 'Admin Study Group') {
+                $postingan->where('user_id', Auth::id());
+            }
 
             return DataTables::of($postingan)
                 ->addIndexColumn()
+                ->addColumn('name', function ($postingan) {
+                    return $postingan->user ? $postingan->user->name : '-';
+                })
                 ->addColumn('category_id', function ($postingan) {
                     return $postingan->Category->name;
                 })
@@ -62,6 +70,8 @@ class PostinganController extends Controller
 
         $data['img'] = $fileName;
         $data['slug'] = Str::slug($data['title']);
+        $data['user_id'] = Auth::user()->id;
+        // 📝 Tambahkan user_id
 
         Postingan::create($data);
 
@@ -99,6 +109,7 @@ class PostinganController extends Controller
         }
 
         $data['slug'] = Str::slug($data['title']);
+        $data['user_id'] = Auth::user()->id;
 
         Postingan::find($id)->update($data);
 

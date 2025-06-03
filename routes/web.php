@@ -26,8 +26,6 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('categories', CategoryController::class)->only(['index', 'store', 'update', 'destroy'])->middleware([\App\Http\Middleware\UserAccess::class . ':1']);
 
-
-
     Route::resource('/users', UserController::class);
 
     Route::group(['prefix' => 'laravel-filemanager'], function () {

@@ -43,7 +43,7 @@
                                             Join WhatsApp Group
                                         </a>
                                     </p> --}}
-                                    <a class="btn btn-primary mt" href="{{ url('p/' . $item->slug) }}">Read more →</a>
+                                    <a class="btn btn-primary mt" href="{{ url('p/' . $item->slug) }}">Detail →</a>
                                 </div>
                             </div>
                         </div>

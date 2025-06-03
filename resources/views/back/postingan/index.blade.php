@@ -15,8 +15,7 @@
         </div>
 
         <div class="mt-3">
-            <a href="{{ url('postingan/create') }}" class="btn btn-secondary mb-2">Create</a
-                href="{{ url('postingan/create') }}">
+            <a href="{{ url('postingan/create') }}" class="btn btn-secondary mb-2">Create</a>
 
             @if ($errors->any())
                 <div class="my-3">
@@ -36,6 +35,7 @@
                 <thead>
                     <tr>
                         <th>NO</th>
+                        <th>Nama</th>
                         <th>Mata Pelajaran</th> {{-- title diganti dengan mata pelajaran --}}
                         <th>Kategori</th>
                         <th>Views</th>
@@ -119,7 +119,13 @@
                     ajax: '{{ url()->current() }}',
                     columns: [{
                             data: 'DT_RowIndex',
-                            name: 'DT_RowIndex'
+                            name: 'DT_RowIndex',
+                            orderable: false,
+                            searchable: false
+                        },
+                        {
+                            data: 'name',
+                            name: 'name'
                         },
                         {
                             data: 'title',
@@ -143,7 +149,9 @@
                         },
                         {
                             data: 'button',
-                            name: 'button'
+                            name: 'button',
+                            orderable: false,
+                            searchable: false
                         },
                     ]
                 });

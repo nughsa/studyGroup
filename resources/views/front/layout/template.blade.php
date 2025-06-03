@@ -34,7 +34,7 @@
                 <form action="{{ route('search') }}" method="POST">
                     @csrf
                     <div class="input-group search-bar">
-                        <input class="form-control" type="text" name="keyword"
+                        <input class="form-control" style="color: #063e23" type="text" name="keyword"
                             placeholder="Search Mata Pelajaran..." />
                         <button class="btn btn-search" type="submit">Search</button>
                     </div>
