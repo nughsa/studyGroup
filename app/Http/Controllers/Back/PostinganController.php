@@ -109,12 +109,16 @@ class PostinganController extends Controller
         }
 
         $data['slug'] = Str::slug($data['title']);
-        $data['user_id'] = Auth::user()->id;
 
-        Postingan::find($id)->update($data);
+        // Pertahankan user_id yang asli
+        $postingan = Postingan::find($id);
+        $data['user_id'] = $postingan->user_id;
+
+        $postingan->update($data);
 
         return redirect(url('postingan'))->with('success', 'Data artikel berhasil diperbarui');
     }
+
 
     public function destroy(string $id)
     {
