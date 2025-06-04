@@ -167,3 +167,15 @@
     row-gap: 20px;
     justify-content: center;
 }
+
+.card-header {
+    background: rgba(107, 201, 129, 0.69);
+}
+
+.teks-kat {
+    color: #063e23;
+}
+
+.back-kat {
+    background: rgba(107, 201, 129, 0.69);
+}
