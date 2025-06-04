@@ -1,18 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
+    <!--<meta name="description" content="" /> -->
+    <meta name="author" content="StudyGroup" />
     @stack('meta-seo')
-    <title>Study Group</title>
+    <title>@yield('title')</title>
     <!-- Favicon-->
     <link rel="icon" type="image/png" href="{{ asset('front/assets/study.png') }}">
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="{{ asset('front/css/styles.css') }}" rel="stylesheet" />
     <link href="{{ asset('front/css/custom.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     @stack('css')
 </head>
 
@@ -42,25 +45,7 @@
             </div>
         </div>
     </header>
-    <div class="container">
-        <div class="row custom-row justify-content-center">
-            <div class="col-md-8">
-                <div class="card mb-4 shadow mt-3">
-                    <div class="card-header text-center fw-bold">Categories</div>
-                    <div class="card-body">
-                        <div class="d-flex flex-wrap gap-2 justify-content-center">
-                            @foreach ($categories as $item)
-                                <a href="#!"
-                                    class="badge bg-white border text-dark px-3 py-2 rounded-pill shadow-sm fw-semibold text-decoration-none text-center hover-effect">
-                                    {{ $item->name }}
-                                </a>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('front.layout.side-widget')
 
 
     @yield('content')

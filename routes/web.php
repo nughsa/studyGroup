@@ -7,6 +7,7 @@ use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Back\CategoryController;
 use App\Http\Controllers\Back\DashboardController;
 use App\Http\Controllers\Back\PostinganController;
+use App\Http\Controllers\Front\CategoryController as FrontCategoryController;
 use App\Http\Controllers\Front\PostinganController as FrontPostinganController;
 
 //Route::get('/', function () {
@@ -18,6 +19,7 @@ Route::POST('/postingan/search', [HomeController::class, 'index'])->name('search
 
 Route::get('/p/{slug}', [FrontPostinganController::class, 'show'])->name('poatingan.show');
 
+Route::get('category/{slug}', [FrontCategoryController::class, 'index']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);

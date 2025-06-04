@@ -1,5 +1,6 @@
 @extends('front.layout.template')
 
+@section('title', 'StudyGroup')
 @section('content')
     <!-- Page content-->
     <div class="container">

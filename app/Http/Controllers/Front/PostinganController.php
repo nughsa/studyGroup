@@ -11,9 +11,12 @@ class PostinganController extends Controller
 {
     public function show($slug)
     {
+        $postingan = Postingan::whereSlug($slug)->firstOrFail();
+        $postingan->increment('views');
         return view('front.postingan.show', [
-            'postingan' => Postingan::whereSlug($slug)->first(),
-            'categories' => Category::latest()->get()
+            'postingan' => $postingan,
+            'categories' => Category::latest()->get(),
+            'category_navbar' => Category::latest()->take(3)->get()
         ]);
     }
 }
